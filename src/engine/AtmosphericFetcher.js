@@ -130,6 +130,14 @@ async function fetchWAQI(cityConfig) {
   }
 
   const avgAQI = countAQI > 0 ? Math.round(sumAQI / countAQI) : 0;
+  
+  console.log(`=== AQI Calculation for ${cityConfig.name} ===`);
+  console.log(`Total Stations: ${stations.length}`);
+  stations.forEach(s => console.log(`Station: ${s.name} | AQI: ${s.aqi}`));
+  console.log(`Sum AQI: ${sumAQI} | Count: ${countAQI}`);
+  console.log(`Calculated Average AQI: ${avgAQI}`);
+  console.log(`=============================================`);
+
   const avgPM25 = countPM25 > 0 ? sumPM25 / countPM25 : PUNE_BASELINE.PM25;
   const avgPM10 = countPM10 > 0 ? sumPM10 / countPM10 : PUNE_BASELINE.PM10;
   const avgNO2 = countNO2 > 0 ? sumNO2 / countNO2 : PUNE_BASELINE.NO2;

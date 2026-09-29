@@ -13,11 +13,11 @@ function App() {
   const [loading, setLoading]   = useState(true);
   const [activePollutant, setActivePollutant] = useState('PM25');
   const [placingMode, setPlacingMode] = useState(null); // { type, subtype, params }
+  const [selectedPoint, setSelectedPoint] = useState(null);
   const [showWindVectors, setShowWindVectors] = useState(true);
   const [showHeatmap, setShowHeatmap] = useState(true);
   const isRunning = useRef(false);
 
-  // Init engine on mount
   useEffect(() => {
     engine.init().then(() => {
       setSimState(engine.getState());
@@ -30,22 +30,24 @@ function App() {
     return () => engine.stop();
   }, []);
 
-  // Handle map clicks when in placing mode
   const handleMapClick = useCallback((lat, lon) => {
-    if (!placingMode) return;
-    const { type, subtype, params } = placingMode;
-    if (type === 'powerPlant') {
-      engine.addSource(createPowerPlant(params.capacityMW, lat, lon, subtype, params.name));
-    } else if (type === 'factory') {
-      engine.addSource(createFactory(lat, lon, subtype, params.count, params.name));
-    } else if (type === 'trees') {
-      engine.addSink(createTreeSink(lat, lon, params.count, params.radiusKm));
-    } else if (type === 'forest') {
-      engine.addSink(createForestSink(lat, lon, params.areaHa));
-    } else if (type === 'wetland') {
-      engine.addSink(createWetlandSink(lat, lon, params.areaHa));
+    if (placingMode) {
+      const { type, subtype, params } = placingMode;
+      if (type === 'powerPlant') {
+        engine.addSource(createPowerPlant(params.capacityMW, lat, lon, subtype, params.name));
+      } else if (type === 'factory') {
+        engine.addSource(createFactory(lat, lon, subtype, params.count, params.name));
+      } else if (type === 'trees') {
+        engine.addSink(createTreeSink(lat, lon, params.count, params.radiusKm));
+      } else if (type === 'forest') {
+        engine.addSink(createForestSink(lat, lon, params.areaHa));
+      } else if (type === 'wetland') {
+        engine.addSink(createWetlandSink(lat, lon, params.areaHa));
+      }
+      setPlacingMode(null);
+    } else {
+      setSelectedPoint({ lat, lon });
     }
-    setPlacingMode(null);
   }, [placingMode]);
 
   const handleTransportChange = useCallback(settings => engine.setTransport(settings), []);
@@ -57,6 +59,7 @@ function App() {
   
   const handleCityChange = useCallback(async (e) => {
     setLoading(true);
+    setSelectedPoint(null);
     await engine.setCity(e.target.value);
     setLoading(false);
   }, []);
@@ -75,12 +78,10 @@ function App() {
 
   return (
     <>
-      {/* ── Header ── */}
       <header className="app-header">
         <div className="header-logo">
-          <div className="header-logo-icon">🌆</div>
           <div>
-            <div className="header-title">CityAtmos</div>
+            <div className="header-title">EcoWatch</div>
             <div className="header-subtitle">
               <select 
                 value={cityId}
@@ -122,10 +123,7 @@ function App() {
         </div>
       </header>
 
-      {/* ── Body ── */}
       <div className="app-body">
-
-        {/* Left Control Panel */}
         <ControlPanel
           simState={simState}
           placingMode={placingMode}
@@ -137,7 +135,6 @@ function App() {
           onRemoveSink={handleRemoveSink}
         />
 
-        {/* Map */}
         <div className="map-container">
           <MapView
             simState={simState}
@@ -146,9 +143,9 @@ function App() {
             showWindVectors={showWindVectors}
             placingMode={placingMode}
             onMapClick={handleMapClick}
+            selectedPoint={selectedPoint}
           />
 
-          {/* Map overlay controls */}
           <div className="map-controls">
             {['AQI', 'PM25','PM10','NO2','SO2','CO2','CO','O3'].map(p => (
               <button key={p} className={`map-overlay-btn ${activePollutant === p ? 'active' : ''}`}
@@ -161,7 +158,6 @@ function App() {
             <button className={`map-overlay-btn ${showWindVectors ? 'active' : ''}`} onClick={() => setShowWindVectors(v => !v)}>💨 Wind</button>
           </div>
 
-          {/* Placing mode hint */}
           {placingMode && (
             <div className="map-placing-hint">
               📍 Click on the map to place: <strong>{placingMode.params?.name || placingMode.type}</strong>
@@ -170,7 +166,6 @@ function App() {
             </div>
           )}
 
-          {/* Stability + wind info badge */}
           <div className="stability-badge">
             <span style={{ color: 'var(--text-muted)', fontSize: '0.68rem' }}>ATMO STABILITY</span>
             <span style={{ fontWeight: 700, color: 'var(--accent)', fontSize: '1.1rem' }}>{stabilityClass}</span>
@@ -183,8 +178,12 @@ function App() {
           </div>
         </div>
 
-        {/* Right Dashboard */}
-        <Dashboard simState={simState} activePollutant={activePollutant} />
+        <Dashboard
+          simState={simState}
+          activePollutant={activePollutant}
+          selectedPoint={selectedPoint}
+          setSelectedPoint={setSelectedPoint}
+        />
       </div>
     </>
   );

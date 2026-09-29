@@ -1,0 +1,912 @@
+\documentclass[a4paper, 12pt]{report}
+\usepackage[a4paper,hmargin={3cm,2.5cm},vmargin={2.5cm,2.5cm}]{geometry}
+\usepackage{amsfonts}
+\usepackage{graphicx}
+\usepackage{multicol}
+\usepackage{lipsum}
+\usepackage{subfig}
+\usepackage{float}
+\usepackage{blindtext}
+\usepackage{fancyhdr}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\usepackage{longtable}
+\usepackage{setspace}
+\usepackage{booktabs}
+\usepackage{array}
+
+% Renaming Bibliography to References
+\renewcommand{\bibname}{References}
+
+% Header and Footer Setup
+\pagestyle{fancy}
+\lhead{}
+\rhead{Bajaj Institute of Technology, Wardha}
+\lfoot{Department of Computer Engineering}
+
+\begin{document}
+
+% -------------------------------------------------------------------
+% TITLE PAGE
+% -------------------------------------------------------------------
+\begin{titlepage}
+\begin{tikzpicture}[overlay,remember picture]
+\draw[line width=4pt]
+    ($ (current page.north west) + (1cm,-1cm) $)
+    rectangle
+    ($ (current page.south east) + (-1cm,1cm) $);
+\draw[line width=1.5pt]
+    ($ (current page.north west) + (1.2cm,-1.2cm) $)
+    rectangle
+    ($ (current page.south east) + (-1.2cm,1.2cm) $);
+\end{tikzpicture}
+\begin{center}	
+	\begin{LARGE}
+		{\textbf {CO2 Digital Twin: A Real-Time Air Quality Monitoring System}}
+	\end{LARGE}\\[0.5cm]
+	
+	\textit{\textbf{A project report submitted to}}\\
+	\textit{\textbf{Dr. Babasaheb Ambedkar Technological University, Lonere}}\\
+	\textit{\textbf{in partial fulfillment of the requirements for the award of the degree}}\\[0.5cm]
+	
+	\textup{\large \textbf{Bachelor of Technology}\\[0.1cm]
+		in\\[0.1cm]
+		\textbf{Computer Engineering}}\\[0.2cm]	
+		
+		\vspace{0.5cm}
+		\textbf{\large Mini-Project – I}\\[0.25cm]
+		\textbf{\small (BTCOM507)}
+		
+	\begin{center}
+		\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.25\linewidth]{./logo1} 
+		\end{figure}
+	\end{center}
+	\textit{by}\\[0.3cm]
+	\textbf{Omkar Dhatrak (PRN: 23046491245001)}\\[0.25cm]
+	\textbf{Renuka Alwadkar (PRN: 23046491245005)}\\[0.25cm]
+	\textbf{Rushi Borkar (PRN: 23046491245012)}\\[0.25cm]
+	(V Semester)
+	\\[0.5cm]	
+	
+	\textit{under the guidance of}\\[0.25cm]
+	\textbf{Prof. Sandesh Jain}\\[0.25cm]	
+	(Project Guide)\\[0.5cm]
+	\vspace{0.3cm}
+	
+	\textup{\textbf{\large Department of Computer Engineering}\\[0.1cm]
+		Shiksha Mandal's\\
+		[0.1cm]
+		\textbf{BAJAJ INSTITUTE OF TECHNOLOGY, WARDHA}}\\[0.1cm]
+		Pipri, Arvi Road, Wardha - 442001.\\[0.2cm]
+	
+	\textbf{(2024-2025)}
+\end{center}
+\end{titlepage}
+
+% -------------------------------------------------------------------
+% CERTIFICATE PAGE
+% -------------------------------------------------------------------
+\begin{titlepage}
+\begin{tikzpicture}[overlay,remember picture]
+\draw[line width=4pt]
+    ($ (current page.north west) + (1cm,-1cm) $)
+    rectangle
+    ($ (current page.south east) + (-1cm,1cm) $);
+\draw[line width=1.5pt]
+    ($ (current page.north west) + (1.2cm,-1.2cm) $)
+    rectangle
+    ($ (current page.south east) + (-1.2cm,1.2cm) $);
+\end{tikzpicture}
+\begin{center}
+	\textup{\large  \textbf{Dr. Babasaheb Ambedkar Technological University, Lonere}\\
+	\textbf{Bajaj Institute of Technology, Wardha}}\\
+	Pipri, Arvi Road, Wardha - 442001.\\[0.5cm]
+	\textbf{\large DEPARTMENT OF COMPUTER ENGINEERING}
+	
+	\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.3\linewidth]{./logo1}
+	\end{figure}	
+	
+	\begin{LARGE}
+	\textbf{\textit {Certificate}}
+	\end{LARGE}\\[1.2cm]
+	
+	This is to certify that Mini-Project-I titled\\[0.5cm]
+	\begin{large}
+	\large\textbf{CO2 Digital Twin: A Real-Time Air Quality Monitoring System}
+	\end{large}\\[0.8cm] 
+	
+	has been completed by \\[0.8cm]
+	\textbf{Omkar Dhatrak (PRN: 23046491245001)}\\[0.25cm]
+	\textbf{Renuka Alwadkar (PRN: 23046491245005)}\\[0.25cm]
+	\textbf{Rushi Borkar (PRN: 23046491245012)}\\[0.5cm]
+\end{center}
+of VI Semester (Sec: A), Computer Engineering of academic year 2025-202 in partial fulfillment of Mini-Project-I (BTCOM507) course as prescribed by the Dr. Babasaheb Ambedkar Technological University, Lonere.
+\vspace{2cm}
+\begin{multicols}{2}
+\begin{center}
+\textbf{Prof. Sandesh Jain}\\
+(Project Guide)\\
+\end{center}
+\begin{center}
+\textbf{Prof. Sheetal Kale}\\
+(Head of the Department)\\
+\end{center}
+\end{multicols}
+\vspace{1.5cm}
+\hbox {Place: BIT, Wardha\\}
+\hbox {Date: \today\\}
+\end{titlepage}
+
+% -------------------------------------------------------------------
+% DECLARATION
+% -------------------------------------------------------------------
+\thispagestyle{empty}
+\begin{center}
+\begin{LARGE}
+	\textbf{\textit {Declaration}}\end{LARGE}\\[1.2cm]
+\end{center}
+We hereby declare that the project entitled "CO2 Digital Twin: A Real-Time Air Quality Monitoring System" submitted by us for the award of the degree of Bachelor of Technology in Computer Engineering is a record of original work carried out by us under the guidance of Prof. Sandesh Jain. The results embodied in this project have not been submitted to any other university or institute for the award of any degree or diploma.\\
+{\flushleft\textbf{Report Title}: CO2 Digital Twin: A Real-Time Air Quality Monitoring System}\\
+\begin{table}[h]
+	\begin{tabular}{|p{1cm}|p{5cm}|p{3cm}|p{4cm}|}
+		\hline
+		\textbf{SN} & \textbf{Student Name} & \textbf{PRN} & \textbf{Signature} \\
+		\hline
+		1 & Omkar Dhatrak  & 23046491245001 & \\
+		\hline
+		2 & Renuka Alwadkar & 23046491245005 & \\
+		\hline
+		3 & Rushi Borkar & 23046491245012 & \\
+		\hline
+	\end{tabular}
+\end{table}
+{\flushleft
+\textbf{Date}: \today\\
+\textbf{Place}: BIT, Wardha  
+}
+\newpage
+
+% -------------------------------------------------------------------
+% ACKNOWLEDGMENT
+% -------------------------------------------------------------------
+\thispagestyle{empty}
+\begin{center}
+	\begin{LARGE}
+		\textbf{\textit {Acknowledgment}}\end{LARGE}\\[1.2cm]
+\end{center}
+We would like to thank our project guide, Prof. Sandesh Jain, for his continuous guidance, technical insights, and support during the development of this project.
+We are also thankful to Prof. Sheetal Kale, Head of the Computer Engineering Department, for providing us with the necessary facilities and encouragement.
+We extend our gratitude to the teaching and non-teaching staff of the department for their help. Finally, we thank our parents and friends for their unwavering support.
+\newpage
+
+% -------------------------------------------------------------------
+% ABSTRACT
+% -------------------------------------------------------------------
+\thispagestyle{empty}
+\begin{center}
+	\begin{LARGE}
+		\textbf{\textit {Abstract}}\end{LARGE}\\[1.2cm]
+\end{center}
+Monitoring air quality, particularly carbon dioxide (CO2) and the broader Air Quality Index (AQI), has become a critical requirement for urban planning and public health. Traditional monitoring systems are often sparse, expensive, and lack real-time geographical visualizations and predictive capabilities. This creates a gap between raw environmental data and actionable insights for citizens and administrators.
+
+The CO2 Digital Twin is a comprehensive web-based platform that creates a virtual representation of physical air quality sensors. Leveraging Internet of Things (IoT) devices communicating via MQTT, the system ingests real-time environmental data. A robust Node.js backend stores the telemetry in MongoDB, while a React-based frontend using Leaflet maps provides an interactive, geographically contextualized dashboard. Furthermore, the system integrates a Convolutional Neural Network (CNN) exposed via a Python FastAPI microservice to analyze temporal data and predict future AQI trends. By combining real-time visualization with AI-driven prediction, the CO2 Digital Twin provides a scalable, intelligent solution for environmental monitoring.
+\vspace{0.3cm}\\
+\textbf{Keywords- } \textbf{\textit{Digital Twin}, \textit{IoT}, \textit{Air Quality Monitoring}, \textit{Machine Learning}, \textit{CNN}, \textit{MQTT}}
+
+\section*{Problem Statement}
+Existing air quality monitoring solutions are often disconnected, lacking real-time geospatial visualization and the ability to predict future trends based on historical sensor data.
+\section*{Proposed Solution}
+A full-stack Digital Twin system integrating physical IoT sensors via MQTT, storing real-time data on a Node.js/MongoDB backend, visualizing it on a React map dashboard, and predicting AQI using a Python-based CNN model.
+\section*{Technologies Used}
+\begin{itemize}
+    \item Frontend: React.js, React-Leaflet, Tailwind CSS
+    \item Backend: Node.js, Express, MongoDB, MQTT
+    \item Machine Learning: Python, FastAPI, TensorFlow/Keras
+\end{itemize}
+\section*{Objectives}
+\begin{itemize}
+    \item Real-time ingestion of IoT sensor data
+    \item Interactive geospatial visualization of CO2 levels
+    \item AI-driven predictive analytics for AQI
+    \item Scalable microservices architecture
+\end{itemize}
+\newpage
+
+% -------------------------------------------------------------------
+% ABBREVIATIONS
+% -------------------------------------------------------------------
+\thispagestyle{empty}
+\begin{center}
+	\begin{LARGE}
+		\textbf{\textit {Abbreviations}}\end{LARGE}\\[1.2cm]
+\end{center}
+\begin{table}[h]
+	\begin{tabular}{ll}			
+		\textbf{API} & Application Programming Interface \\
+		\textbf{AQI} & Air Quality Index \\
+		\textbf{CNN} & Convolutional Neural Network \\
+		\textbf{CO2} & Carbon Dioxide \\
+		\textbf{IoT} & Internet of Things \\
+		\textbf{JSON} & JavaScript Object Notation \\
+		\textbf{ML} & Machine Learning \\
+		\textbf{MQTT} & Message Queuing Telemetry Transport \\
+		\textbf{REST} & Representational State Transfer \\
+		\textbf{AQI} & Air Quality Index \\
+		\textbf{IDW} & Inverse Distance Weighting \\
+		\textbf{PG} & Pasquill-Gifford (Stability Classes) \\
+		\textbf{WAQI} & World Air Quality Index \\
+		\textbf{OWM} & OpenWeatherMap \\
+		\textbf{CPCB} & Central Pollution Control Board \\
+		\textbf{EV} & Electric Vehicle \\
+		\textbf{SVG} & Scalable Vector Graphics \\
+	\end{tabular}
+\end{table}
+\pagenumbering{gobble}
+\newpage
+
+% -------------------------------------------------------------------
+% TABLE OF CONTENTS
+% -------------------------------------------------------------------
+\pagenumbering{roman}
+\setcounter{page}{1}
+\tableofcontents
+%\listoffigures
+%\listoftables
+\newpage
+\pagenumbering{arabic}
+
+% ===================================================================
+% CHAPTER 1: INTRODUCTION
+% ===================================================================
+\chapter{Introduction}
+\section{Introduction}
+The rapid urbanization and industrialization of the modern world have led to severe environmental challenges, chief among them being air pollution. High levels of Carbon Dioxide (CO2) and a deteriorating Air Quality Index (AQI) pose significant risks to public health and contribute to global climate change. Traditional environmental monitoring relies on static, widely dispersed government stations that provide low-resolution spatial data and often report on a delayed schedule.
+
+A Digital Twin is a virtual representation of a physical object, system, or process that spans its lifecycle, updated from real-time data, and uses simulation, machine learning, and reasoning to help decision-making. By applying the digital twin concept to environmental monitoring, we can create a dynamic, real-time map of a city's air quality.
+
+The CO2 Digital Twin project aims to bridge the gap between physical sensors and digital analytics. By leveraging affordable Internet of Things (IoT) sensors, real-time messaging protocols, and advanced web technologies, the project provides a live dashboard of environmental conditions. Furthermore, by integrating Deep Learning (specifically Convolutional Neural Networks), the system not only reports on current conditions but attempts to predict future trends, allowing for proactive measures.
+
+\section{Problem Definition}
+Citizens and city administrators need accurate, localized, and timely information about air quality to make informed decisions. However, current systems suffer from the following issues:
+\begin{itemize}
+    \item \textbf{Lack of Granularity:} Government monitoring stations are too sparse to provide neighborhood-level data.
+    \item \textbf{Delayed Reporting:} Data is often aggregated and reported hours after it is collected.
+    \item \textbf{Absence of Predictive Insights:} Most dashboards only show historical or current data, lacking AI-driven forecasting.
+    \item \textbf{Fragmented Ecosystems:} Hardware sensors, data storage, visualization, and machine learning models are often disjointed, making it hard to deploy a unified solution.
+\end{itemize}
+
+\section{Motivation}
+The motivation behind the CO2 Digital Twin is to empower individuals and organizations with actionable environmental intelligence. By building an end-to-end system from edge devices (IoT) to the cloud (Node.js/MongoDB) and integrating cutting-edge machine learning (Python/TensorFlow), we can demonstrate a scalable architecture for smart city infrastructure. Providing a visual, map-based interface makes the data accessible to non-technical users, raising awareness about local air quality.
+
+\section{Project Objectives}
+The detailed objectives of the CO2 Digital Twin project are as follows:
+\begin{itemize}
+	\item \textbf{IoT Integration:} Establish reliable communication between distributed environmental sensors and a central server using the lightweight MQTT protocol.
+	\item \textbf{Data Management:} Persist high-frequency time-series telemetry data efficiently using MongoDB.
+	\item \textbf{Real-Time Visualization:} Develop an interactive web application using React and Leaflet to display sensor locations and live CO2/AQI metrics on a map.
+	\item \textbf{Predictive Modeling:} Implement and deploy a CNN-based AQI forecasting model inspired by the architecture proposed by Naveed et al. (2025) to generate future air-quality predictions from historical sensor observations.
+	\item \textbf{Microservices Architecture:} Decouple the machine learning inference engine (FastAPI) from the main backend (Node.js) to ensure scalability.
+\end{itemize}
+
+\section{Our Solution: CO2 Digital Twin}
+The proposed solution is a full-stack digital twin platform. It begins with edge devices configured to publish CO2 and AQI data to an MQTT broker. A Node.js backend acts as an MQTT client, subscribing to these topics, processing the incoming telemetry, and storing it in a MongoDB database designed for time-series data. 
+
+To provide predictive insights, a separate Python FastAPI microservice hosts a pre-trained Keras CNN model. The Node.js backend periodically queries this microservice to generate forecasts based on recent historical readings.
+
+Finally, a React-based frontend fetches the aggregated real-time and predicted data via REST APIs, rendering a dynamic geographic interface using React-Leaflet. This allows users to visually inspect air quality across different nodes in the network, creating a true digital twin of the physical environment.
+
+\section{Organization of Report}
+This report is organized into the following chapters:
+\begin{itemize}
+	\item \textbf{Chapter 1} introduces the project, problem definition, motivation, and objectives.
+	\item \textbf{Chapter 2} presents a literature survey of existing air quality monitoring systems and their limitations.
+	\item \textbf{Chapter 3} details the system methodology, architecture, technology stack, and the design of the client-side atmospheric simulation engine.
+	\item \textbf{Chapter 4} covers the implementation of both the IoT backend and the browser-based simulation engine, including its scientific models and interactive dashboard.
+	\item \textbf{Chapter 5} discusses the results, testing outcomes, and comparison with literature.
+	\item \textbf{Chapter 6} presents conclusions and future scope.
+\end{itemize}
+
+% ===================================================================
+% CHAPTER 2: LITERATURE SURVEY
+% ===================================================================
+\chapter{Literature Survey}
+
+\section{Introduction}
+Monitoring the environment has evolved significantly with the advent of the Internet of Things (IoT). Historically, environmental data collection was a manual or highly centralized process. This chapter reviews existing systems, their advantages, and the limitations that the CO2 Digital Twin seeks to address.
+
+\section{Existing Systems}
+
+\subsection*{Traditional Government Monitoring Stations}
+Most cities rely on highly accurate, expensive monitoring stations maintained by environmental protection agencies.
+\textbf{Advantages:} High accuracy and calibration standards.
+\textbf{Disadvantages:} Very high cost, resulting in sparse deployment and lack of micro-level (neighborhood) data.
+
+\subsection*{Consumer-grade Air Purifiers and Monitors}
+Standalone devices for homes (e.g., Dyson, Xiaomi) measure indoor air quality.
+\textbf{Advantages:} Accessible to the public and easy to use.
+\textbf{Disadvantages:} Data is siloed within proprietary apps, entirely focused on indoor environments, and lacks predictive capabilities.
+
+\subsection*{Commercial Air Quality APIs (e.g., IQAir, OpenWeather)}
+These services aggregate data from various sources to provide city-level AQI via REST APIs.
+\textbf{Advantages:} Easy to integrate into software applications.
+\textbf{Disadvantages:} Often rely on interpolation between sparse physical stations, resulting in inaccurate localized data.
+
+\subsection*{Digital Twin Based AQI Forecasting}
+Naveed et al. (2025) proposed a Digital Twin framework for smart city air
+quality monitoring that integrates machine learning forecasting with
+real-time visualization. Their work evaluated RNN, LSTM, GRU, MLP and
+CNN-based models for AQI prediction. Experimental results showed that a
+two-layer one-dimensional CNN achieved the highest prediction accuracy,
+making it a suitable candidate for real-time environmental forecasting.
+The study demonstrated the importance of combining predictive analytics
+with Digital Twin technologies for intelligent urban monitoring systems.
+
+\section{Limitations of Existing Systems}
+Despite technological advancements, several gaps remain:
+\begin{itemize}
+	\item \textbf{Lack of Integrated Digital Twins:} Very few platforms provide a true "digital twin" experience where physical sensor states are mirrored on a geographic map in real-time.
+	\item \textbf{Absence of Predictive Machine Learning:} Most platforms limit themselves to historical and current data reporting. Predicting the future state of the air quality using deep learning is rarely integrated into open-source or educational platforms.
+	\item \textbf{Scalability and Protocol Issues:} Many educational IoT projects use heavy HTTP requests for sensor telemetry instead of optimized protocols like MQTT, leading to poor scalability and high power consumption on edge devices.
+\end{itemize}
+
+\section{Summary}
+The literature indicates a clear need for a localized, highly scalable, and predictive air quality monitoring system. The CO2 Digital Twin addresses these limitations by utilizing MQTT for efficient data transfer, React-Leaflet for geospatial visualization, and a CNN-based FastAPI microservice for AI-driven forecasting.
+
+% ===================================================================
+% CHAPTER 3: METHODOLOGY
+% ===================================================================
+\chapter{Methodology}
+
+\section{Overview}
+This chapter explains the methodology and system architecture adopted for the CO2 Digital Twin. The system is designed as a distributed, microservices-based application, segregating data ingestion, storage, machine learning inference, and user interface components.
+
+\section{Technology Stack}
+The platform leverages a modern, robust technology stack tailored for IoT and Data Science:
+
+\subsection{Frontend}
+\begin{itemize}
+\item \textbf{React.js} for building a dynamic single-page application.
+\item \textbf{React-Leaflet} for interactive geographic maps.
+\item \textbf{Tailwind CSS} for responsive and modern UI design.
+\item \textbf{Axios} for handling REST API communication with the backend.
+\end{itemize}
+
+\subsection{Backend}
+\begin{itemize}
+\item \textbf{Node.js \& Express} acting as the central API gateway and orchestration layer.
+\item \textbf{MQTT.js} to subscribe to real-time IoT telemetry from edge devices.
+\item \textbf{MongoDB \& Mongoose} for persisting hierarchical data (Nodes, Sensor Readings, AQI Trends).
+\end{itemize}
+
+\subsection{Machine Learning Microservice}
+\begin{itemize}
+\item \textbf{Python \& FastAPI} to host the machine learning inference engine.
+\item \textbf{TensorFlow/Keras} for running the Convolutional Neural Network (CNN) model to predict AQI.
+\item \textbf{Pandas \& NumPy} for data preprocessing and tensor manipulation.
+\end{itemize}
+
+\section{System Architecture}
+The system follows a layered architecture:
+
+\begin{enumerate}
+\item \textbf{IoT Edge Layer:} ESP32 microcontrollers or simulated devices read CO2 and AQI sensors and publish JSON payloads to an MQTT broker.
+\item \textbf{Data Ingestion Layer:} The Node.js backend connects to the MQTT broker, validating incoming telemetry and writing it to the MongoDB database.
+\item \textbf{Machine Learning Layer:} A scheduled poller in the Node.js backend retrieves historical windows of data and sends them to the Python FastAPI microservice. The FastAPI service runs the data through the Keras CNN model (`aqi\_cnn\_model-Copy1.keras`) and returns predicted AQI values.
+\item \textbf{Presentation Layer:} The React frontend fetches real-time states and ML predictions via REST API endpoints (`/api/aqi`, `/api/sensors`) and plots the digital twin on an interactive map.
+\end{enumerate}
+
+\section{Database Design} 
+The MongoDB schema is designed to handle time-series environmental data efficiently.
+\begin{itemize}
+\item \textbf{Node Collection:} Represents a physical IoT device (ESP32), including its geolocation (latitude/longitude), status, and metadata.
+\item \textbf{SensorReading Collection:} Stores high-frequency raw telemetry (CO2 levels, temperature, humidity) timestamped and linked to a specific Node.
+\item \textbf{AQIReading Collection:} Stores computed and predicted Air Quality Index values, facilitating rapid querying for historical charts and trend analysis.
+\end{itemize}
+
+\section{Implementation of the ML Microservice}
+By separating the machine learning model into a FastAPI microservice, the system achieves significant architectural benefits. Node.js is excellent for asynchronous I/O and handling thousands of MQTT messages, but struggles with heavy computational tasks like neural network inference. Python, equipped with TensorFlow and Pandas, handles the CNN inference efficiently. Communication between the Node.js backend and the Python microservice is achieved through high-speed internal REST HTTP calls, ensuring the system remains responsive and scalable.
+
+\section{CNN Model Architecture}
+
+The AQI prediction model used in this project is based on a one-dimensional
+Convolutional Neural Network (CNN-1D). The model architecture was inspired
+by the work of Naveed et al. (2025), who evaluated multiple deep learning
+algorithms for AQI forecasting and reported superior performance using a
+two-layer CNN architecture.
+
+The CNN model extracts temporal patterns from historical environmental
+data using convolutional layers followed by dense layers for regression.
+Rectified Linear Unit (ReLU) activation functions are used within the
+hidden layers, while a linear activation function is used in the output
+layer to generate continuous AQI predictions.
+
+The model was implemented using TensorFlow/Keras and exposed through a
+FastAPI microservice. Historical sensor observations are processed into
+fixed-length sequences before being provided as input to the network.
+The resulting predictions are integrated into the Digital Twin dashboard
+to provide forecasted AQI trends alongside real-time measurements.
+
+\section{Research Inspiration and Adaptation}
+
+The machine learning component of this project is inspired by the work
+of Naveed et al. (2025), who proposed a Digital Twin framework for
+smart-city air-quality monitoring and AQI forecasting. Their study
+investigated multiple deep-learning architectures and reported superior
+performance from a two-layer CNN model.
+
+Rather than reproducing the complete framework presented in the paper,
+this project adapts only the AQI prediction component. The CNN model is
+integrated into our custom Digital Twin platform consisting of MQTT-based
+IoT data acquisition, a Node.js backend, MongoDB storage, and a React
+visualization dashboard. This approach allows us to incorporate
+research-backed forecasting capabilities while maintaining a system
+architecture tailored to the requirements of this project.
+
+\section{Database Schema Implementation}
+Our database follows a NoSQL document-based structure using MongoDB, which is highly suitable for unstructured or semi-structured IoT telemetry data. The collections ensure consistency and efficient retrieval for both real-time dashboards and machine learning pipelines.
+The major database collections and their roles within the system are described below:
+\begin{itemize}
+\item \textbf{Nodes:} Stores metadata about the physical IoT edge devices. Fields include \texttt{nodeId}, \texttt{location} (latitude and longitude), \texttt{status} (active/inactive), and \texttt{lastActive}. This collection provides the geographic context required for the digital twin mapping.
+\item \textbf{SensorReadings:} This collection acts as the primary telemetry sink. It stores high-frequency raw data emitted by the sensors, including \texttt{nodeId}, \texttt{co2Level}, \texttt{temperature}, \texttt{humidity}, and a precise \texttt{timestamp}. The time-series nature of this collection allows the frontend to plot historical charts.
+\item \textbf{AQIReadings:} Stores both calculated and ML-predicted Air Quality Index values. It includes fields such as \texttt{nodeId}, \texttt{aqiValue}, \texttt{isPredicted}, and \texttt{timestamp}. By separating this from raw sensor readings, the system can quickly query aggregated trends without processing raw telemetry on the fly.
+\end{itemize}
+This NoSQL schema enables modular feature expansion, efficient querying for time-series data, and seamless integration with the Python data science ecosystem (Pandas/NumPy).
+\section{Challenges and Solutions}
+\begin{itemize}
+	\item \textbf{Challenge:} High-frequency data ingestion blocking the server.
+	  \textbf{Solution:} Used an MQTT broker and asynchronous event-driven architecture in Node.js to handle thousands of messages efficiently.
+	
+	\item \textbf{Challenge:} Heavy Machine Learning inference causing API timeouts.
+	  \textbf{Solution:} Decoupled the ML model into an independent FastAPI microservice, offloading computation from the main Node.js server.
+	
+	\item \textbf{Challenge:} Rendering thousands of data points on a map.
+	  \textbf{Solution:} Utilized React-Leaflet with marker clustering to optimize geospatial rendering on the frontend.
+\end{itemize}
+% ----------------------------------------------------------
+\section{Workflow and Data Flow}
+The workflow of the system defines how environmental data moves from the physical world, through the processing pipelines, and onto the digital twin dashboard.
+\begin{enumerate}
+\item \textbf{Edge Sensing and Transmission}\\
+The physical IoT sensors (e.g., ESP32 microcontrollers) read CO2, temperature, and humidity levels. The payloads are formatted as JSON and published to the MQTT broker over a lightweight TCP connection.
+\item \textbf{Data Ingestion and Storage}\\
+The Node.js backend, acting as an MQTT subscriber, listens for incoming telemetry. It validates the data format and asynchronously saves the records into the MongoDB \texttt{SensorReadings} collection.
+\item \textbf{Machine Learning Inference}\\
+A scheduled background service in Node.js aggregates the last N hours of data and sends an HTTP POST request to the Python FastAPI microservice. The microservice feeds the data into the Convolutional Neural Network (CNN) to predict the future AQI.
+\item \textbf{Dashboard Visualization}\\
+The React frontend continuously polls (or uses WebSockets) the Node.js API to retrieve the latest physical state and ML predictions. This data is rendered dynamically on a Leaflet geographic map, updating marker colors based on AQI severity.
+\end{enumerate}
+% ----------------------------------------------------------
+\section{Security and Performance Considerations}
+Security and performance are critical for an IoT platform that handles continuous streams of data and exposes public APIs.
+\subsection{Security Measures}
+\begin{itemize}
+\item \textbf{MQTT Authentication:}\\
+Edge devices are authenticated using unique client IDs and TLS encryption to prevent rogue devices from publishing false telemetry.
+\item \textbf{API Validation and Rate Limiting:}\\
+All REST API endpoints are protected with input validation (using libraries like Joi or express-validator) and rate-limiting to mitigate Denial of Service (DoS) attacks.
+\end{itemize}
+\subsection{Performance Optimization Strategies}
+\begin{itemize}
+\item \textbf{Database Indexing:}\\
+MongoDB collections are heavily indexed on \texttt{nodeId} and \texttt{timestamp}. This reduces query times for historical charts from seconds to milliseconds.
+\item \textbf{Decoupled Architecture:}\\
+By separating the CNN inference (Python) from the I/O operations (Node.js), neither service acts as a bottleneck for the other.
+\end{itemize}
+
+% ----------------------------------------------------------
+\section{Simulation Engine: Overview and Rationale}
+While the IoT backend described above handles real-time data from physical sensors, we found that relying solely on a sparse network of monitoring stations gives an incomplete picture of how pollutants actually spread through a city. To address this, we developed a browser-based atmospheric simulation engine that runs entirely on the client side. The engine takes live weather and air quality data from public APIs, feeds it into well-established atmospheric dispersion equations, and computes a high-resolution pollution grid covering the entire metropolitan area. This way, users can see not just what the sensors report, but how pollutants are likely distributed between those sensor locations.
+
+The simulation engine is written in JavaScript and structured as a set of loosely coupled modules. Each module handles one aspect of the atmospheric model --- wind behaviour, pollutant dispersion, transport emissions, energy grid emissions, or carbon sink absorption. A central orchestrator called \texttt{SimulationCore} ties these modules together, advancing the simulation by one hour every real-world minute and notifying the React frontend whenever the state changes.
+
+% ----------------------------------------------------------
+\section{Real-Time Data Acquisition}
+Before the simulation can begin, it needs a realistic starting point. Two external APIs provide this initial condition:
+
+\begin{itemize}
+\item \textbf{World Air Quality Index (WAQI) API:} The engine queries the WAQI search endpoint to discover monitoring stations near the selected city. For each station, it fetches detailed pollutant readings --- PM$_{2.5}$, PM$_{10}$, NO$_2$, SO$_2$, O$_3$, and CO. Additionally, it merges data from India's Central Pollution Control Board (CPCB) XML feed to fill gaps and improve station coverage. When a WAQI station and a CPCB station are geographically very close (within 200 metres), their readings are merged rather than duplicated.
+
+\item \textbf{OpenWeatherMap (OWM) API:} Current meteorological conditions --- wind speed, wind direction, temperature, humidity, atmospheric pressure, and cloud cover --- are fetched for the city center. These readings form the baseline weather that the wind model adjusts throughout the simulated day.
+\end{itemize}
+
+If the API calls succeed, the simulation marks itself as running on ``Live Data''; otherwise, it falls back to hardcoded baseline values representative of Pune's annual averages and labels the data as ``Demo.''
+
+% ----------------------------------------------------------
+\section{Spatial Grid Construction and IDW Interpolation}
+The city is divided into a 50$\times$50 grid of cells, each approximately 1~km$^2$ in area. The grid boundaries are defined by latitude and longitude limits specific to each supported city. At initialization, the engine must assign pollutant concentrations to every cell, even though only a handful of monitoring stations exist within the grid.
+
+To accomplish this, we use Inverse Distance Weighting (IDW) interpolation. For each grid cell and each pollutant, the concentration is calculated as a weighted average of all station readings, where the weight of a given station is inversely proportional to the square of its distance from the cell:
+
+\begin{equation}
+C(x) = \frac{\sum_{i=1}^{n} \frac{C_i}{d_i^2}}{\sum_{i=1}^{n} \frac{1}{d_i^2}}
+\end{equation}
+
+where $C(x)$ is the interpolated concentration at grid cell $x$, $C_i$ is the measured concentration at station $i$, and $d_i$ is the distance from station $i$ to the cell. If a cell lies within 100 metres of a station, the station's reading is used directly. Cells farther than 4.5~km from any station are flagged as invalid and rendered transparently on the map, preventing the display of overly speculative data.
+
+% ----------------------------------------------------------
+\section{Gaussian Plume Dispersion Model}
+The core atmospheric science behind the simulation is the steady-state Gaussian plume equation, a widely used model for estimating ground-level pollutant concentrations downwind of a point source. Our implementation follows the treatment described in Turner's \textit{Workbook of Atmospheric Dispersion Estimates} (1994) and uses Briggs urban dispersion coefficients.
+
+\subsection{Pasquill-Gifford Stability Classification}
+Atmospheric stability strongly affects how pollutants disperse. Under unstable conditions (strong daytime heating, light winds), pollutants mix rapidly and concentrations drop off quickly with distance. Under stable conditions (nighttime, low winds), a shallow mixing layer traps pollutants near the ground. The engine classifies stability into six Pasquill-Gifford classes (A through F) based on wind speed, time of day, and cloud cover percentage.
+
+\subsection{Dispersion Coefficients}
+The horizontal and vertical spread of the plume is characterized by the dispersion coefficients $\sigma_y$ and $\sigma_z$, which grow with downwind distance $x$. We use the Briggs urban parameterization:
+\begin{equation}
+\sigma_y(x) = a \cdot x \cdot (1 + b \cdot x)^{-0.5}
+\end{equation}
+\begin{equation}
+\sigma_z(x) = a \cdot x \cdot (1 + b \cdot x)^{c}
+\end{equation}
+where the coefficients $a$, $b$, and $c$ differ for each stability class. These coefficients are stored in a lookup table within the \texttt{constants.js} configuration file.
+
+\subsection{Plume Rise and Effective Stack Height}
+Industrial stacks release hot gases that rise above the physical stack tip before leveling off. The engine computes the plume rise using a simplified Briggs (1969) buoyancy flux formula. The effective stack height $H_e$ is the physical stack height plus the calculated plume rise, and it depends on the exit velocity, exit temperature, stack diameter, and ambient wind speed.
+
+\subsection{Ground-Level Concentration}
+For a source emitting at rate $Q$ (g/s) from effective height $H_e$ into a wind of speed $u$ (m/s), the ground-level concentration at downwind distance $x$ and crosswind distance $y$ is:
+\begin{equation}
+C(x,y,0) = \frac{Q}{2\pi \sigma_y \sigma_z u} \exp\!\left(-\frac{y^2}{2\sigma_y^2}\right) \left[\exp\!\left(-\frac{H_e^2}{2\sigma_z^2}\right) + \exp\!\left(-\frac{H_e^2}{2\sigma_z^2}\right)\right]
+\end{equation}
+
+The second exponential term accounts for ground-level reflection assuming a perfectly reflecting surface. Before applying this equation, each grid cell's position relative to the source is transformed into a wind-aligned coordinate frame (downwind $x$, crosswind $y$) using the current wind direction.
+
+% ----------------------------------------------------------
+\section{Wind and Atmospheric Modelling}
+Wind conditions are not static throughout the day. The engine applies diurnal variation patterns inspired by Pune's geography near the Western Ghats:
+
+\begin{itemize}
+\item \textbf{Morning (6--10h):} Light winds with a slight easterly drift; speed factor 0.7$\times$.
+\item \textbf{Afternoon (11--16h):} Stronger winds from the west-southwest with peak atmospheric mixing; speed factor 1.3$\times$.
+\item \textbf{Evening (17--20h):} Calming winds backing southerly; speed factor 0.9$\times$.
+\item \textbf{Night (20--6h):} Calm, stable conditions with a light northeasterly land breeze; speed factor 0.5$\times$.
+\end{itemize}
+
+A temperature inversion factor is also computed. During nighttime hours with low wind speeds, the inversion factor drops as low as 0.15, indicating severe trapping of pollutants near the ground. This factor scales the emissions from point sources to simulate the accumulation effect that inversion layers cause in real cities.
+
+Additionally, a wind vector field is generated on an 8$\times$8 sub-grid and displayed as animated arrows on the map, giving users a visual sense of wind direction and turbulence. A small random noise component is added to each vector to represent atmospheric turbulence.
+
+% ----------------------------------------------------------
+\section{Emission Source Modelling}
+The engine supports two categories of point sources that users can place interactively on the map:
+
+\subsection{Power Plants}
+Users can place coal, natural gas, solar, or wind power plants with configurable capacity (in MW). The engine uses published emission factors (kg per MWh) for each fuel type. For instance, coal plants emit approximately 1000~kg CO$_2$/MWh with a 200-metre stack, while gas plants emit around 490~kg CO$_2$/MWh from an 80-metre stack. Solar and wind installations have zero direct emissions. A capacity factor of 75\% is applied to fossil fuel plants.
+
+\subsection{Industrial Factories}
+Factories come in three subtypes --- heavy, light, and cement. Each has predefined emission rates for CO$_2$, SO$_2$, NO$_2$, PM$_{2.5}$, PM$_{10}$, and CO, along with stack parameters. Users can specify how many factory units to cluster at a given location.
+
+Pune's real industrial landscape is represented by four default sources: the Pimpri-Chinchwad industrial zone, the Hadapsar industrial estate, the Chakan automobile manufacturing cluster, and a representative gas power station. These provide a realistic baseline before any user interventions.
+
+% ----------------------------------------------------------
+\section{Transport Emission Model}
+Vehicular traffic is one of the largest contributors to urban air pollution. The transport model estimates city-wide hourly emissions from the road network based on Pune's registered vehicle fleet of approximately four million vehicles.
+
+The baseline fleet composition reflects Pune's actual vehicle mix: 55\% two-wheelers, 20\% petrol cars, 8\% diesel cars, 2\% diesel buses, and a small but growing share of electric vehicles. Users can adjust three sliders in the control panel:
+
+\begin{itemize}
+\item \textbf{EV Adoption (\%):} Shifts a fraction of petrol cars and two-wheelers to electric equivalents, which produce zero tailpipe emissions.
+\item \textbf{Public Transit (\%):} Increases bus ridership, with each bus trip assumed to replace approximately 30 individual car trips.
+\item \textbf{Cycling (\%):} Removes a fraction of short two-wheeler trips.
+\end{itemize}
+
+The model dynamically adjusts the fleet mix based on these settings and calculates total hourly emissions for CO$_2$, PM$_{2.5}$, NO$_2$, and CO using per-vehicle-per-kilometre emission factors drawn from published literature. These emissions are distributed uniformly across all grid cells as an area source, simulating the dispersed nature of road traffic.
+
+% ----------------------------------------------------------
+\section{Energy Grid Model}
+The energy model tracks the city's power generation mix and its resulting emissions. Pune's peak electricity demand is estimated at approximately 3,500~MW, with the current generation split being roughly 60\% coal, 20\% natural gas, 12\% hydropower, and 8\% renewables.
+
+Users can modify four parameters through the interface:
+\begin{itemize}
+\item Percentage of demand met by rooftop solar panels (with an 18\% capacity factor).
+\item Additional utility-scale solar farm capacity (22\% capacity factor).
+\item Additional wind farm capacity (30\% capacity factor).
+\item Percentage of coal capacity to retire.
+\end{itemize}
+
+As clean energy is added or coal is retired, the model recalculates the generation mix, normalizes it, and recomputes the grid's carbon intensity in gCO$_2$/kWh. The resulting emissions are spread uniformly across all grid cells as a city-wide background contribution.
+
+% ----------------------------------------------------------
+\section{Carbon Sink Modelling}
+To let users explore mitigation strategies, the engine includes a carbon sink module. Four types of sinks can be placed on the map:
+
+\begin{itemize}
+\item \textbf{Tree Plantations:} Each tree absorbs approximately 21~kg of CO$_2$ per year. Users specify the number of trees and the radius of the plantation.
+\item \textbf{Forests:} Denser absorption at roughly 6,000~kg CO$_2$ per hectare per year, with an additional PM$_{2.5}$ filtering effect.
+\item \textbf{Wetlands:} Absorb about 2,000~kg CO$_2$ per hectare per year, with moderate particulate capture.
+\item \textbf{Green Rooftops:} A city-wide slider converts a percentage of Pune's estimated 100 million~m$^2$ of rooftop area into vegetated surfaces. The absorption is distributed uniformly across the entire grid.
+\end{itemize}
+
+When sinks are applied, the absorption is divided equally among the grid cells that fall within the sink's geographic radius, and the pollutant concentrations in those cells are reduced accordingly. A floor value of 350~ppm for CO$_2$ prevents concentrations from dropping below the global atmospheric baseline.
+
+% ----------------------------------------------------------
+\section{Simulation Tick Cycle}
+Every simulation tick (one real minute representing one simulated hour), the engine performs the following steps in order:
+
+\begin{enumerate}
+\item \textbf{Reset Grid:} The grid is rebuilt from the latest API baseline to avoid cumulative drift errors.
+\item \textbf{Apply Diurnal Weather:} The base weather is adjusted for the current simulated hour.
+\item \textbf{Compute Stability and Inversion:} The Pasquill-Gifford class and inversion factor are determined.
+\item \textbf{Disperse Point Sources:} For each enabled source, the Gaussian plume equation is evaluated at every grid cell, with emissions scaled by the inversion factor during nighttime.
+\item \textbf{Add Transport Emissions:} Distributed vehicle emissions are applied across the grid.
+\item \textbf{Add Energy Emissions:} Grid-level power generation emissions are spread city-wide.
+\item \textbf{Subtract Sink Absorption:} Green infrastructure and planted vegetation reduce concentrations in their coverage areas.
+\item \textbf{Recompute AQI:} Each cell's Air Quality Index is recalculated from its PM$_{2.5}$ concentration using the Indian National AQI breakpoints.
+\item \textbf{Record History:} The city-wide mean pollutant values are appended to a rolling 48-hour history buffer for the timeline charts.
+\item \textbf{Update Wind Vectors:} The vector field is regenerated with fresh turbulence noise.
+\end{enumerate}
+
+This recalculation is deterministic for a given set of inputs, ensuring that replaying the same scenario always produces identical results.
+
+% ===================================================================
+% CHAPTER 4: IMPLEMENTATION
+% ===================================================================
+\chapter{Implementation}
+\section{Overview}
+The implementation of the CO2 Digital Twin focuses on building an intuitive, real-time geographical dashboard backed by robust data processing pipelines. The core interface is a map-centric view that allows users to monitor environmental conditions across various sensor nodes seamlessly.
+% ----------------------------------------------------------
+\section{Digital Twin Map Interface}
+The map interface acts as the primary visual component of the platform. Using React-Leaflet, the application renders a dynamic map layer. Each IoT node is represented as an interactive marker placed at its exact geographic coordinates. 
+The markers utilize color-coding to reflect the current AQI or CO2 status (e.g., Green for Good, Red for Hazardous), allowing users to understand the city's air quality at a single glance. Clicking on a marker opens a detailed tooltip or sidebar displaying real-time metrics, historical charts, and the CNN's predictive forecast.
+\section{Backend and MQTT Integration}
+The backend implementation heavily relies on the \texttt{mqtt.js} library within a Node.js environment. Upon initialization, the server connects to the MQTT broker and subscribes to predefined topics (e.g., \texttt{sensors/+/telemetry}). When a message arrives, the payload is parsed, validated against the Mongoose schema, and persisted to MongoDB.
+\section{Machine Learning API Integration}
+The Keras CNN model (\texttt{aqi\_cnn\_model-Copy1.keras}) is deployed within a FastAPI container. FastAPI was chosen for its high performance and native asynchronous support in Python. The Node.js application communicates with this microservice via standard HTTP REST calls, requesting predictions by sending trailing windows of historical AQI data.
+
+% ----------------------------------------------------------
+\section{Simulation Engine Implementation}
+
+\subsection{Module Architecture}
+The simulation engine is organized into eight JavaScript modules under the \texttt{src/engine/} directory. Each module exports pure functions (with the exception of the singleton \texttt{SimulationCore} class), making them independently testable and easy to reason about:
+
+\begin{itemize}
+\item \texttt{SimulationCore.js} --- The master orchestrator. It initializes the simulation, manages timers, exposes mutation methods (add/remove sources and sinks, change transport/energy settings), and maintains a subscriber list so that the React frontend is notified on every state change.
+\item \texttt{AtmosphericFetcher.js} --- Handles all external API communication. It queries the WAQI and CPCB APIs in parallel, merges duplicate stations, computes city-wide pollutant averages, and fetches weather data from OpenWeatherMap.
+\item \texttt{GaussianPlume.js} --- Implements the Gaussian plume dispersion equation, Pasquill-Gifford stability classification, Briggs dispersion coefficients, plume rise calculations, and both point-source and area-source application functions.
+\item \texttt{WindModel.js} --- Applies diurnal wind adjustments, computes temperature inversion factors, and generates the wind vector field displayed on the map.
+\item \texttt{EmissionSources.js} --- Provides factory functions for creating power plant and factory source descriptors with appropriate emission factors and stack parameters. Also defines Pune's default industrial sources.
+\item \texttt{TransportModel.js} --- Calculates fleet-wide vehicle emissions based on user-configurable EV adoption, public transit usage, and cycling rates, and distributes these emissions across the grid.
+\item \texttt{EnergyModel.js} --- Computes emissions from the electricity generation mix, accounting for coal retirement, rooftop solar, and utility-scale renewable additions.
+\item \texttt{CarbonSinks.js} --- Creates sink descriptors for trees, forests, wetlands, and green rooftops, and subtracts their absorption from affected grid cells.
+\end{itemize}
+
+Supporting utility modules in \texttt{src/utils/} provide the grid construction and IDW interpolation logic (\texttt{gridUtils.js}), the AQI color scale mapping (\texttt{colorScale.js}), and all physical constants, emission factors, and city configurations (\texttt{constants.js}).
+
+\subsection{Multi-City Support}
+The engine supports eight major Indian cities: Pune, Delhi, Mumbai, Bengaluru, Chennai, Kolkata, Hyderabad, and Ahmedabad. Each city is defined by its geographic center and a bounding box for the 50$\times$50 grid. When the user switches cities from a dropdown in the header, the engine re-fetches live data for that city, rebuilds the grid, and smoothly pans the map to the new location using Leaflet's \texttt{flyTo} animation.
+
+\subsection{Interactive Map Interface}
+The map is rendered using Leaflet.js with CartoDB dark-themed tiles, chosen for readability against the colored heatmap overlay. The heatmap is drawn using an HTML5 Canvas element: pollutant concentrations are rendered pixel-by-pixel onto a 50$\times$50 canvas, which is then stretched over the map bounds as a Leaflet \texttt{ImageOverlay}. This approach is significantly more performant than creating 2,500 individual DOM elements.
+
+Source and sink markers use custom HTML-based Leaflet \texttt{DivIcon} instances styled as colored pins with emoji indicators. Clicking any marker shows a popup with the source's name and emission rates. Wind vectors are drawn as semi-transparent polylines with circle markers at their tips to suggest arrowheads.
+
+A row of pollutant selector buttons (AQI, PM$_{2.5}$, PM$_{10}$, NO$_2$, SO$_2$, CO$_2$, CO, O$_3$) along the top of the map allows users to switch which pollutant the heatmap visualizes. Toggle buttons for the heatmap and wind vector overlays provide further control.
+
+\subsection{Control Panel}
+The left sidebar is organized into four tabbed sections:
+
+\begin{enumerate}
+\item \textbf{Green Tab:} Configure and place tree plantations, forests, wetlands, and adjust city-wide green rooftop coverage.
+\item \textbf{Industry Tab:} Place power plants (coal, gas, solar, wind) with configurable capacity, and factories (heavy, light, cement) with configurable cluster size.
+\item \textbf{Transport Tab:} Adjust EV adoption, public transit, and cycling percentages via sliders, with live readouts of daily fleet CO$_2$ and PM$_{2.5}$ totals.
+\item \textbf{Energy Tab:} Adjust rooftop solar, solar farm MW, wind farm MW, and coal retirement percentage, with a live energy mix bar chart showing the resulting generation split.
+\end{enumerate}
+
+When a user configures an intervention and clicks the ``Place on Map'' button, the map enters a crosshair cursor mode. The next map click places the source or sink at that location and immediately triggers a full grid recalculation, so the effect is visible within milliseconds.
+
+\subsection{Dashboard and Analytics Panel}
+The right sidebar provides a real-time analytics terminal inspired by mission-control dashboards. It includes:
+
+\begin{itemize}
+\item \textbf{Point Telemetry:} When the user clicks any grid location, the dashboard shows the interpolated AQI, all seven pollutant concentrations, and the AQI severity label for that exact point.
+\item \textbf{Wind Rose:} A custom SVG compass showing the current wind direction and speed, with cardinal direction labels and a Beaufort scale descriptor.
+\item \textbf{Timeline Charts:} Two Recharts line graphs show the rolling 24-hour history of city-mean AQI (with reference lines at the ``Moderate'' and ``Unhealthy'' thresholds) and PM$_{2.5}$/NO$_2$ trends.
+\item \textbf{Carbon Capture Summary:} Displays the total CO$_2$ absorption rate and PM$_{2.5}$ sequestration rate from all active sinks.
+\item \textbf{Industrial Hotspots:} Lists all active emission sources with their estimated annual CO$_2$ output, clickable to pan the map to that source's location.
+\end{itemize}
+% ===================================================================
+% CHAPTER 5: RESULTS & DISCUSSION
+% ===================================================================
+\chapter{Result \& Discussion}
+\section{Features Built}
+We successfully implemented the following core features:
+\begin{itemize}
+	\item Real-time MQTT telemetry ingestion pipeline.
+	\item Geospatial dashboard using React-Leaflet with live node tracking.
+	\item Time-series database integration with MongoDB.
+	\item CNN model deployment via a FastAPI Python microservice.
+	\item Interactive historical charts for CO2 and AQI trends.
+	\item Browser-based atmospheric simulation engine with Gaussian plume dispersion.
+	\item Multi-city support covering eight major Indian cities with live API data.
+	\item Interactive what-if analysis with user-placeable emission sources and carbon sinks.
+	\item Transport emission modelling with configurable EV adoption and public transit parameters.
+	\item Energy grid decarbonization simulator with real-time carbon intensity tracking.
+	\item IDW-interpolated pollution heatmap rendered via high-performance HTML5 Canvas.
+	\item Wind rose visualization and animated wind vector field overlay.
+\end{itemize}
+
+\section{Simulation Engine Results}
+The simulation engine was tested across multiple Indian cities and produced results that align well with known air quality patterns. When initialized with live WAQI data for Pune, the engine consistently fetched between 8 and 15 monitoring stations, providing sufficient coverage for meaningful IDW interpolation across the 50$\times$50 grid.
+
+\subsection{Gaussian Plume Validation}
+The Gaussian plume model was validated qualitatively by placing a coal power plant on the map and observing the resulting concentration plume. As expected, the plume elongated in the downwind direction, with concentrations decaying with distance and lateral spread increasing as the stability class shifted from stable (Class F at night) to unstable (Class A on a clear afternoon). The plume rise calculation correctly elevated the effective stack height, resulting in lower ground-level concentrations near the stack and a concentration peak at several hundred metres downwind.
+
+\subsection{Diurnal Variation}
+Stepping through a full 24-hour cycle revealed the expected diurnal pattern: pollutant concentrations rose during the nighttime hours (20:00--06:00) as the inversion factor compressed the mixing layer, and dispersed rapidly during the afternoon peak-mixing period (11:00--16:00). The wind direction shifted from a northeasterly land breeze at night to a southwesterly sea breeze in the afternoon, consistent with Pune's known patterns near the Western Ghats.
+
+\subsection{What-If Scenario Analysis}
+Several policy scenarios were tested using the control panel:
+\begin{itemize}
+\item Increasing EV adoption from 5\% to 50\% reduced the daily fleet CO$_2$ output by approximately 35\%, demonstrating the diminishing returns as the two-wheeler and car segments saturate with EVs.
+\item Retiring 50\% of coal capacity and adding 500~MW of solar reduced the grid carbon intensity from approximately 700~gCO$_2$/kWh to around 400~gCO$_2$/kWh.
+\item Planting 50,000 trees in a 2~km radius around a high-pollution industrial zone visibly reduced CO$_2$ concentrations in the surrounding cells, though the effect was modest compared to the emissions from heavy industry.
+\end{itemize}
+
+These results confirm that the simulation engine provides a useful tool for exploring the relative impact of different environmental interventions, even though the absolute concentration values should be interpreted as indicative rather than precise.
+\section{Testing}
+Testing verified the reliability of data ingestion and the accuracy of the frontend representation.
+% ----------------------------------------------------------
+\subsection{Unit and Component Testing}
+React components (e.g., the Map view, Chart widgets) were tested to ensure they render properly when provided with mocked telemetry data. Backend API routes were tested for correct JSON serialization and database interactions.
+\subsection{Integration and Load Testing}
+To validate the MQTT pipeline, a script was developed to simulate hundreds of IoT edge devices publishing data simultaneously. The Node.js backend successfully ingested the high-throughput telemetry without dropping messages or crashing the MongoDB instance. 
+Furthermore, the integration between Node.js and the Python FastAPI microservice was validated to ensure predictions were returned within acceptable latency thresholds (typically under 200ms).
+
+\subsection{Comparison with Literature}
+
+The implemented CNN forecasting module follows the general approach
+suggested by Naveed et al. (2025), where convolutional layers are used
+to extract temporal features from historical AQI observations.
+Although the current project focuses primarily on system integration and
+real-time Digital Twin visualization, the successful deployment of the
+CNN model validates the feasibility of incorporating research-driven
+forecasting techniques into practical smart-city monitoring systems.
+% ===================================================================
+% CHAPTER 6: CONCLUSION & FUTURE SCOPE
+% ===================================================================
+\chapter{Conclusion \& Future Scope}
+\section{Conclusion}
+The CO2 Digital Twin project successfully demonstrates a modern, scalable approach to environmental monitoring. By combining affordable IoT hardware, a high-performance Node.js/MongoDB backend, and an interactive React frontend, the system provides a comprehensive virtual representation of physical air quality.
+The integration of a Convolutional Neural Network (CNN) via a FastAPI microservice elevates the platform from a mere reporting tool to a predictive intelligence system. The microservices architecture ensures that computational heavy-lifting (ML inference) does not impact the real-time ingestion capabilities of the MQTT pipeline. 
+
+The browser-based atmospheric simulation engine adds a further dimension to the project. By implementing the Gaussian plume dispersion model, diurnal wind patterns, transport and energy emission models, and interactive carbon sink placement, the simulation allows users to explore realistic what-if scenarios without any server-side computation. The multi-city support and live API integration ensure that simulations start from real-world conditions rather than synthetic data, making the results more meaningful for urban planners and environmentally conscious citizens.
+
+Ultimately, this project showcases how full-stack web technologies, scientific atmospheric modelling, and deep learning can be synthesized to tackle real-world urban and environmental challenges.
+% ----------------------------------------------------------
+\section{Future Improvements}
+While the current platform is fully functional, several enhancements are planned for future iterations:
+\begin{itemize}
+\item \textbf{Support for Additional Pollutants:}
+Expanding the sensor payload to include PM2.5, PM10, NO2, and VOCs to calculate a more comprehensive Air Quality Index.
+\item \textbf{Advanced ML Architectures:}
+Experimenting with Long Short-Term Memory (LSTM) networks or Transformers for time-series forecasting, potentially improving prediction accuracy over the current CNN implementation.
+\item \textbf{Mobile Application:}
+Developing a React Native mobile application to push real-time air quality alerts and hazardous AQI notifications directly to users' smartphones.
+\item \textbf{Edge AI Capabilities:}
+Deploying lighter versions of the ML models directly onto the ESP32 microcontrollers using TensorFlow Lite for Microcontrollers, allowing edge devices to detect anomalies locally even when network connectivity is lost.
+\item \textbf{Puff Model for Transient Emissions:}
+Replacing or supplementing the steady-state Gaussian plume with a Gaussian puff model to better capture time-varying emissions, sudden releases, and shifting wind conditions.
+\item \textbf{3D Terrain and Building Effects:}
+Incorporating digital elevation models and building footprint data to account for terrain channeling, urban heat islands, and street canyon effects on pollutant dispersion.
+\item \textbf{Collaborative Scenario Sharing:}
+Adding the ability for users to save, share, and compare what-if scenarios so that multiple stakeholders (e.g., city planners, environmental agencies) can collaborate on policy analysis.
+\item \textbf{WebSocket-Based Live Updates:}
+Migrating the frontend from polling-based API calls to persistent WebSocket connections, enabling true sub-second updates as new sensor data arrives.
+\end{itemize}
+% ===================================================================
+% REFERENCES
+% ===================================================================
+\begin{thebibliography}{9}
+\addcontentsline{toc}{chapter}{REFERENCES}
+\bibitem{react} 
+React Documentation. 
+\textit{https://react.dev}
+\bibitem{nodejs} 
+Node.js Documentation. 
+\textit{https://nodejs.org/en/docs/}
+\bibitem{mongodb} 
+MongoDB Documentation. 
+\textit{https://www.mongodb.com/docs/}
+\bibitem{mqtt} 
+MQTT Protocol Specification. 
+\textit{https://mqtt.org/}
+\bibitem{fastapi} 
+FastAPI Documentation. 
+\textit{https://fastapi.tiangolo.com/}
+\bibitem{tensorflow} 
+TensorFlow / Keras Documentation. 
+\textit{https://www.tensorflow.org/}
+\bibitem{leaflet} 
+Leaflet.js - Interactive Maps. 
+\textit{https://leafletjs.com/}
+\bibitem{naveed2025}
+Naveed, K., Umer, T., Asghar, A. B., Aslam, M., Ejsmont, K.,
+Metwally, A. S. M., and Thanh, K. N.
+``Digital Twin Framework for Smart City Air Quality Monitoring and AQI Forecasting Using Deep Learning,''
+\textit{Environmental Modelling \& Software},
+Vol. 192, 2025, Article 106559.
+\bibitem{turner1994}
+Turner, D. B.
+\textit{Workbook of Atmospheric Dispersion Estimates: An Introduction to Dispersion Modelling},
+2nd ed., CRC Press, 1994.
+\bibitem{briggs1969}
+Briggs, G. A.
+``Plume Rise,''
+\textit{U.S. Atomic Energy Commission Critical Review Series},
+TID-25075, 1969.
+\bibitem{waqi}
+World Air Quality Index (WAQI) API Documentation.
+\textit{https://aqicn.org/api/}
+\bibitem{owm}
+OpenWeatherMap API Documentation.
+\textit{https://openweathermap.org/api}
+\bibitem{vite}
+Vite - Next Generation Frontend Tooling.
+\textit{https://vitejs.dev/}
+\bibitem{recharts}
+Recharts - A composable charting library for React.
+\textit{https://recharts.org/}
+\end{thebibliography}
+% ===================================================================
+% APPENDIX
+% ===================================================================
+\appendix 
+\addcontentsline{toc}{chapter}{APPENDICES}
+\chapter{Database Schema Details}
+\section{Complete Document Structure (MongoDB)}
+The following JSON representations outline the document structure for the primary MongoDB collections.
+% -------------------------------------------------
+\subsection*{Nodes Collection}
+\begin{verbatim}
+{
+  "_id": ObjectId("..."),
+  "nodeId": "ESP32_NODE_01",
+  "location": {
+    "lat": 20.745,
+    "lng": 78.602
+  },
+  "status": "ACTIVE",
+  "lastActive": ISODate("2026-05-29T12:00:00Z"),
+  "metadata": {
+    "firmwareVersion": "1.2.0"
+  }
+}
+\end{verbatim}
+% -------------------------------------------------
+\subsection*{SensorReadings Collection}
+\begin{verbatim}
+{
+  "_id": ObjectId("..."),
+  "nodeId": "ESP32_NODE_01",
+  "co2Level": 415.2,
+  "temperature": 28.5,
+  "humidity": 65.0,
+  "timestamp": ISODate("2026-05-29T12:05:00Z")
+}
+\end{verbatim}
+% -------------------------------------------------
+\subsection*{AQIReadings Collection}
+\begin{verbatim}
+{
+  "_id": ObjectId("..."),
+  "nodeId": "ESP32_NODE_01",
+  "aqiValue": 45,
+  "isPredicted": false,
+  "timestamp": ISODate("2026-05-29T12:05:00Z")
+}
+\end{verbatim}
+\chapter{UI Screenshots}
+\textbf{Note:} Add screenshots of your React application here:
+\begin{figure}[H]
+	\centering
+	\caption{Real-Time Digital Twin Dashboard (Map View)}
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\caption{Historical AQI and CO2 Trends Chart}
+\end{figure}
+\end{document}

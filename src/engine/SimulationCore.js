@@ -153,7 +153,7 @@ export class SimulationCore {
     if (this._tickTimer) return;
     this._tickTimer    = setInterval(() => this.tick(), TICK_MS);
     this._weatherTimer = setInterval(async () => {
-      this.baseWeather = await refreshWeather();
+      this.baseWeather = await refreshWeather(this.cityId);
     }, WEATHER_REFRESH_MS);
   }
 

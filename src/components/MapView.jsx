@@ -1,7 +1,7 @@
 import { useEffect, useRef, useCallback } from 'react';
 import L from 'leaflet';
 import { concentrationToColor, aqiToColor } from '../utils/colorScale.js';
-import { GRID, CELL_LAT, CELL_LON, POLLUTANTS, ACTIVE_CITY } from '../utils/constants.js';
+import { GRID, CELL_LAT, CELL_LON, POLLUTANTS, ACTIVE_CITY, CITIES } from '../utils/constants.js';
 
 // Max scale per pollutant for color mapping
 const MAX_SCALE = { PM25: 200, PM10: 300, NO2: 400, SO2: 300, CO2: 1000, CO: 50, O3: 300 };
@@ -17,7 +17,7 @@ function makeMarkerHtml(icon, color) {
   </div>`;
 }
 
-export default function MapView({ simState, activePollutant, showHeatmap, showWindVectors, placingMode, onMapClick }) {
+export default function MapView({ simState, activePollutant, showHeatmap, showWindVectors, placingMode, onMapClick, selectedPoint }) {
   const mapRef       = useRef(null);
   const leafletRef   = useRef(null);
   const heatCanvasRef= useRef(null);
@@ -69,9 +69,12 @@ export default function MapView({ simState, activePollutant, showHeatmap, showWi
 
   // Update map view on city change
   useEffect(() => {
-    if (!leafletRef.current || !ACTIVE_CITY) return;
-    leafletRef.current.flyTo(ACTIVE_CITY.center, 12, { animate: true, duration: 1.5 });
-  }, [ACTIVE_CITY]);
+    if (!leafletRef.current || !simState?.cityId) return;
+    const city = CITIES[simState.cityId];
+    if (city) {
+      leafletRef.current.flyTo(city.center, 12, { animate: true, duration: 1.5 });
+    }
+  }, [simState?.cityId]);
 
   // Update map cursor when placing
   useEffect(() => {
@@ -110,7 +113,11 @@ export default function MapView({ simState, activePollutant, showHeatmap, showWi
     }
 
     const bounds = [[GRID.latMin, GRID.lonMin], [GRID.latMax, GRID.lonMax]];
-    L.imageOverlay(canvas.toDataURL(), bounds, { opacity: 1, zIndex: 200 }).addTo(layer);
+    L.imageOverlay(canvas.toDataURL(), bounds, { 
+      opacity: 0.65, 
+      zIndex: 200, 
+      className: 'heatmap-layer' 
+    }).addTo(layer);
 
   }, [simState?.grid, activePollutant, showHeatmap]);
 
@@ -174,7 +181,23 @@ export default function MapView({ simState, activePollutant, showHeatmap, showWi
       }).bindPopup(`<b>${st.name}</b><br/>AQI: ${st.aqi}`).addTo(leafletRef.current);
       markersRef.current.push(c);
     }
-  }, [simState?.sources, simState?.sinks, simState?.aqiData]);
+
+    // Render selected point marker
+    if (selectedPoint) {
+      const selectedIcon = L.divIcon({
+        html: `<div style="position: relative; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center;">
+          <div style="position: absolute; width: 10px; height: 10px; background: #10b981; border: 2px solid #fff; border-radius: 50%; box-shadow: 0 0 10px #10b981; z-index: 2;"></div>
+          <div style="position: absolute; width: 26px; height: 26px; border: 2px solid #10b981; border-radius: 50%; animation: pulse 1.5s ease-out infinite; z-index: 1;"></div>
+        </div>`,
+        className: '',
+        iconSize: [30, 30],
+        iconAnchor: [15, 15]
+      });
+      const selMarker = L.marker([selectedPoint.lat, selectedPoint.lon], { icon: selectedIcon })
+        .addTo(leafletRef.current);
+      markersRef.current.push(selMarker);
+    }
+  }, [simState?.sources, simState?.sinks, simState?.aqiData, selectedPoint]);
 
   const pollutantLabel = POLLUTANTS.find(p => p.key === activePollutant)?.label || activePollutant;
 

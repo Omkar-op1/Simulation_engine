@@ -2,6 +2,7 @@
  * WindModel — derives atmospheric stability and diurnal wind pattern
  */
 import { stabilityClass } from './GaussianPlume.js';
+import { GRID } from '../utils/constants.js';
 
 /**
  * Determine stability class from current weather.
@@ -55,7 +56,7 @@ export function inversionFactor(weather, simHour) {
  * Generate wind vector field for map display.
  * Returns array of { lat, lon, u, v } (m/s components).
  */
-export function generateWindField(weather, rows = 8, cols = 8, bounds = { latMin: 18.30, latMax: 18.75, lonMin: 73.65, lonMax: 74.10 }) {
+export function generateWindField(weather, rows = 8, cols = 8, bounds = GRID) {
   const { windSpeed, windDir } = weather;
   const theta = (windDir * Math.PI) / 180;
   // meteorological → math convention (wind blows TO direction)

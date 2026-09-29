@@ -2,21 +2,14 @@ import {
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip,
   ResponsiveContainer, ReferenceLine,
 } from 'recharts';
-import { aqiToColor } from '../utils/colorScale.js';
 
 const CustomTooltip = ({ active, payload, label }) => {
   if (!active || !payload?.length) return null;
-  const aqi = payload[0]?.value;
   return (
-    <div style={{
-      background: 'rgba(8,20,40,0.95)',
-      border: '1px solid rgba(255,255,255,0.1)',
-      borderRadius: 8, padding: '8px 12px',
-      fontSize: '0.75rem',
-    }}>
-      <div style={{ color: 'var(--text-muted)', marginBottom: 4 }}>Hour {label}:00</div>
+    <div className="bg-neutral-950 border border-white/10 rounded p-2 text-[10px] font-mono text-neutral-300 shadow-xl">
+      <div className="text-neutral-500 mb-1">Hour {label}:00</div>
       {payload.map((p, i) => (
-        <div key={i} style={{ color: p.color, fontWeight: 700 }}>
+        <div key={i} style={{ color: p.color }} className="font-bold">
           {p.name}: {typeof p.value === 'number' ? p.value.toFixed(1) : p.value}
         </div>
       ))}
@@ -27,8 +20,8 @@ const CustomTooltip = ({ active, payload, label }) => {
 export default function TimelineChart({ history = [] }) {
   if (!history.length) {
     return (
-      <div style={{ height: 120, display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--text-muted)', fontSize: '0.75rem' }}>
-        Accumulating data…
+      <div className="h-20 flex items-center justify-center text-neutral-600 text-[10px] font-mono">
+        Telemetry buffering...
       </div>
     );
   }
@@ -41,48 +34,44 @@ export default function TimelineChart({ history = [] }) {
   }));
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-      {/* AQI line chart */}
-      <ResponsiveContainer width="100%" height={110}>
-        <LineChart data={data} margin={{ top: 5, right: 5, bottom: 0, left: -20 }}>
-          <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
-          <XAxis dataKey="hour" tick={{ fill: 'rgba(200,225,255,0.4)', fontSize: 10 }}
-            tickFormatter={h => `${h}h`} interval="preserveStartEnd" />
-          <YAxis tick={{ fill: 'rgba(200,225,255,0.4)', fontSize: 10 }} domain={['auto', 'auto']} />
+    <div className="flex flex-col gap-3 font-mono">
+      <ResponsiveContainer width="100%" height={100}>
+        <LineChart data={data} margin={{ top: 5, right: 5, bottom: 0, left: -25 }}>
+          <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.03)" />
+          <XAxis dataKey="hour" tick={{ fill: '#737373', fontSize: 8, fontFamily: 'monospace' }}
+            tickFormatter={h => `${h}h`} interval="preserveStartEnd" stroke="rgba(255,255,255,0.05)" />
+          <YAxis tick={{ fill: '#737373', fontSize: 8, fontFamily: 'monospace' }} domain={['auto', 'auto']} stroke="rgba(255,255,255,0.05)" />
           <Tooltip content={<CustomTooltip />} />
-          <ReferenceLine y={100} stroke="#ff7e00" strokeDasharray="4 4" strokeOpacity={0.5} />
-          <ReferenceLine y={150} stroke="#ff0000" strokeDasharray="4 4" strokeOpacity={0.5} />
+          <ReferenceLine y={100} stroke="#f97316" strokeDasharray="4 4" strokeOpacity={0.3} />
+          <ReferenceLine y={150} stroke="#ef4444" strokeDasharray="4 4" strokeOpacity={0.3} />
           <Line type="monotone" dataKey="AQI" name="AQI"
-            stroke="#00d4ff" strokeWidth={2} dot={false}
-            strokeShadowColor="rgba(0,212,255,0.4)" />
+            stroke="#10b981" strokeWidth={1.5} dot={false} />
         </LineChart>
       </ResponsiveContainer>
 
-      {/* Legend */}
-      <div style={{ display: 'flex', gap: 12, fontSize: '0.68rem', color: 'var(--text-muted)', paddingLeft: 4 }}>
-        <span style={{ color: '#00d4ff' }}>── AQI</span>
-        <span style={{ color: '#ff7e00', opacity: 0.6 }}>- - 100 (Moderate)</span>
-        <span style={{ color: '#ff0000', opacity: 0.6 }}>- - 150 (Unhealthy)</span>
+      <div className="flex gap-3 text-[8px] text-neutral-500 pl-1">
+        <span className="text-emerald-500">── AQI</span>
+        <span className="text-orange-500/80">-- 100 MOD</span>
+        <span className="text-red-500/80">-- 150 UNH</span>
       </div>
 
-      {/* PM2.5 + NO2 mini chart */}
       <ResponsiveContainer width="100%" height={80}>
-        <LineChart data={data} margin={{ top: 5, right: 5, bottom: 0, left: -20 }}>
-          <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.04)" />
-          <XAxis dataKey="hour" tick={{ fill: 'rgba(200,225,255,0.35)', fontSize: 9 }}
-            tickFormatter={h => `${h}h`} interval="preserveStartEnd" />
-          <YAxis tick={{ fill: 'rgba(200,225,255,0.35)', fontSize: 9 }} />
+        <LineChart data={data} margin={{ top: 5, right: 5, bottom: 0, left: -25 }}>
+          <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.03)" />
+          <XAxis dataKey="hour" tick={{ fill: '#737373', fontSize: 8, fontFamily: 'monospace' }}
+            tickFormatter={h => `${h}h`} interval="preserveStartEnd" stroke="rgba(255,255,255,0.05)" />
+          <YAxis tick={{ fill: '#737373', fontSize: 8, fontFamily: 'monospace' }} stroke="rgba(255,255,255,0.05)" />
           <Tooltip content={<CustomTooltip />} />
           <Line type="monotone" dataKey="PM25" name="PM₂.₅"
-            stroke="#ff8c00" strokeWidth={1.5} dot={false} />
+            stroke="#f97316" strokeWidth={1.2} dot={false} />
           <Line type="monotone" dataKey="NO2" name="NO₂"
-            stroke="#ff4444" strokeWidth={1.5} dot={false} />
+            stroke="#ef4444" strokeWidth={1.2} dot={false} />
         </LineChart>
       </ResponsiveContainer>
 
-      <div style={{ display: 'flex', gap: 12, fontSize: '0.68rem', color: 'var(--text-muted)', paddingLeft: 4 }}>
-        <span style={{ color: '#ff8c00' }}>── PM₂.₅ (µg/m³)</span>
-        <span style={{ color: '#ff4444' }}>── NO₂ (µg/m³)</span>
+      <div className="flex gap-3 text-[8px] text-neutral-500 pl-1">
+        <span className="text-orange-500">── PM₂.₅</span>
+        <span className="text-red-500">── NO₂</span>
       </div>
     </div>
   );

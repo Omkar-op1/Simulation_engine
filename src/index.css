@@ -1,43 +1,49 @@
+@layer theme, base, components, utilities;
+
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css" layer(utilities);
+
 /* ═══════════════════════════════════════════════════════════════════════════
    CityAtmos — Global Styles
    Dark, glassmorphic, premium atmospheric simulation UI
+   Base theme and utilities.
 ═══════════════════════════════════════════════════════════════════════════ */
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
 
 /* ─── Design Tokens ────────────────────────────────────────────────────────── */
 :root {
-  --bg-base:        #050d1a;
-  --bg-panel:       rgba(8, 20, 40, 0.85);
-  --bg-card:        rgba(255, 255, 255, 0.04);
-  --bg-card-hover:  rgba(255, 255, 255, 0.08);
-  --border:         rgba(255, 255, 255, 0.08);
-  --border-strong:  rgba(255, 255, 255, 0.15);
+  --bg-base:        #0a0a0a;
+  --bg-panel:       rgba(23, 23, 23, 0.96);
+  --bg-card:        rgba(38, 38, 38, 0.3);
+  --bg-card-hover:  rgba(38, 38, 38, 0.5);
+  --border:         rgba(255, 255, 255, 0.05);
+  --border-strong:  rgba(255, 255, 255, 0.1);
 
-  --accent:         #00d4ff;
-  --accent-dim:     rgba(0, 212, 255, 0.15);
-  --accent-glow:    0 0 20px rgba(0, 212, 255, 0.4);
-  --green:          #00ff88;
-  --green-dim:      rgba(0, 255, 136, 0.15);
-  --red:            #ff4444;
-  --orange:         #ff8c00;
-  --yellow:         #ffd700;
+  --accent:         #10b981;
+  --accent-dim:     rgba(16, 185, 129, 0.1);
+  --accent-glow:    0 0 20px rgba(16, 185, 129, 0.3);
+  --green:          #10b981;
+  --green-dim:      rgba(16, 185, 129, 0.15);
+  --red:            #ef4444;
+  --orange:         #f97316;
+  --yellow:         #eab308;
 
-  --text-primary:   #e8f4ff;
-  --text-secondary: rgba(200, 225, 255, 0.6);
-  --text-muted:     rgba(200, 225, 255, 0.35);
+  --text-primary:   #f5f5f5;
+  --text-secondary: #a3a3a3;
+  --text-muted:     #737373;
 
-  --radius-sm:  6px;
-  --radius-md:  12px;
-  --radius-lg:  20px;
-  --radius-xl:  28px;
+  --radius-sm:  4px;
+  --radius-md:  8px;
+  --radius-lg:  12px;
+  --radius-xl:  16px;
 
-  --shadow-panel: 0 8px 32px rgba(0,0,0,0.6), 0 0 0 1px var(--border);
-  --shadow-glow:  0 0 40px rgba(0, 212, 255, 0.15);
-  --transition:   all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  --shadow-panel: 0 8px 32px rgba(0,0,0,0.8), 0 0 0 1px var(--border);
+  --shadow-glow:  0 0 40px rgba(16, 185, 129, 0.1);
+  --transition:   all 0.15s ease-in-out;
 
   --sidebar-w: 320px;
-  --dashboard-w: 340px;
+  --dashboard-w: 400px; /* matched user's 400px panel width */
   --header-h: 60px;
 }
 
@@ -407,6 +413,12 @@ input[type='range']::-webkit-slider-thumb:hover { transform: scale(1.2); }
 .leaflet-container { background: #0a1628 !important; }
 .leaflet-control-zoom { display: none; }
 .leaflet-marker-icon { filter: drop-shadow(0 2px 6px rgba(0,0,0,0.8)); }
+
+.heatmap-layer {
+  filter: blur(16px);
+  /* Use auto rendering so it interpolates nicely instead of pixelating */
+  image-rendering: auto;
+}
 
 /* ─── Animations ─────────────────────────────────────────────────────────────── */
 @keyframes pulse {
